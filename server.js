@@ -1,6 +1,11 @@
 // imports express(by using common js)
 const express = require("express");
 
+const connectDB = require("./config/db");
+
+// connect Database
+connectDB();
+
 // initialize express as a constant
 const app = express();
 
