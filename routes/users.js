@@ -33,12 +33,12 @@ const User = require("../models/User");
 // @access  Public
 router.post(
   "/",
+  // username must be an name
+  body("name", " A name is required.").not().isEmpty(),
   // username must be an email
-  body("name").not().isEmpty(),
-  // username must be an email
-  body("email").isEmail(),
-  // password must be at least 5 chars long
-  body("password").isLength({ min: 5 }),
+  body("email", " A valid email is required.").isEmail(),
+  // password must be at least 6 chars long
+  body("password", "Password of 6 or more characters is required.").isLength({ min: 6 }),
   async (req, res) => {
     // Finds the validation errors in this request and wraps them in an object with handy functions
     const errors = validationResult(req);
