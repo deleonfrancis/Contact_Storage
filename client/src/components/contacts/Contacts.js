@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import ContactContext from "../../context/contact/contactContext";
+import ContactItem from "./ContactItem"
 
 function Contacts() {
   // git us access to any state or actions associated with ContactState
@@ -8,7 +9,7 @@ function Contacts() {
   const { contacts } = contactContext;
 
   return (<>
-      {contacts.map(contact => <h3>{contact.name}</h3> )}
+      {contacts.map(contact => <ContactItem key={contact.id} contact = {contact} /> )}
   </>);
 }
 
