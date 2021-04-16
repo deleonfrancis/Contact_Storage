@@ -5,7 +5,7 @@ import Home from "./components/pages/Home";
 import About from "./components/pages/About";
 import axios from "axios";
 
-import ContactState from "../context/contact/ContactState";
+import ContactState from "./context/contact/ContactState";
 import "./App.css";
 
 const App = () => {
