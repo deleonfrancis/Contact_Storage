@@ -1,8 +1,18 @@
-import React, { useState, useContext, Fragment } from "react";
+import React, { useState, useContext, Fragment, useEffect } from "react";
 import ContactContext from "../../context/contact/contactContext";
 
 function ContactForm() {
   const contactContext = useContext(ContactContext);
+
+  const { addContact, current, clearCurrent, updateContact } = contactContext;
+
+  useEffect(() => {
+    if (current !== null) {
+      setContact(current);
+    } else {
+      setContact({ name: " ", email: " ", phone: " ", type: "personal" });
+    }
+  }, [contactContext, current]);
 
   const [contact, setContact] = useState({
     name: " ",
@@ -18,19 +28,31 @@ function ContactForm() {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    contactContext.addContact(contact);
-    setContact({
-      name: " ",
-      email: " ",
-      phone: " ",
-      type: "personal",
-    });
+    if (current === null) {
+      addContact(contact);
+      setContact({
+        name: " ",
+        email: " ",
+        phone: " ",
+        type: "personal",
+      });
+    } else {
+      updateContact(contact)
+      clearCurrent()
+    }
+  };
+
+  const handleClearAll = () => {
+    clearCurrent();
   };
 
   return (
     <Fragment>
       <form onSubmit={onSubmit}>
-        <div style={{margin:"15px 0"}}>
+        <h2 className="text-primary">
+          {current ? "Edit Contact" : "Add Contact"}
+        </h2>
+        <div style={{ margin: "15px 0" }}>
           <label htmlFor="name">Name</label>
           <input
             type="text"
@@ -39,10 +61,10 @@ function ContactForm() {
             //   placeholder="Name"
             value={name}
             onChange={onChange}
-            style={{margin:"0"}}
+            style={{ margin: "0" }}
           />
         </div>
-        <div style={{margin:"15px 0"}}>
+        <div style={{ margin: "15px 0" }}>
           <label htmlFor="email">Email</label>
           <input
             type="email"
@@ -51,10 +73,10 @@ function ContactForm() {
             //   placeholder="Email"
             value={email}
             onChange={onChange}
-            style={{margin:"0"}}
+            style={{ margin: "0" }}
           />
         </div>
-        <div style={{margin:"15px 0"}}>
+        <div style={{ margin: "15px 0" }}>
           <label htmlFor="phone">Phone Number</label>
           <input
             type="text"
@@ -63,7 +85,7 @@ function ContactForm() {
             //   placeholder="Phone"
             value={phone}
             onChange={onChange}
-            style={{margin:"0"}}
+            style={{ margin: "0" }}
           />
         </div>
         <h5>Contact Type</h5>
@@ -74,7 +96,7 @@ function ContactForm() {
           checked={type === "personal"}
           onChange={onChange}
         />
-        Personal {" "}
+        Personal{" "}
         <input
           type="radio"
           name="type"
@@ -86,11 +108,21 @@ function ContactForm() {
         <div>
           <input
             type="submit"
-            value="Add Contact"
+            value={current ? "Update Contact" : "Add Contact"}
             className="btn btn-primary btn-block"
             onChange={onChange}
           />
         </div>
+        {current && (
+          <div>
+            <button
+              className="btn btn-light btn-block"
+              onClick={handleClearAll}
+            >
+              Clear
+            </button>
+          </div>
+        )}
         {/* <input type="submit" value="Submit" /> */}
       </form>
       {/* <form onSubmit={onSubmit}>
