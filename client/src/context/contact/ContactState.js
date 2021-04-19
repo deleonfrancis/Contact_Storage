@@ -5,8 +5,8 @@ import contactReducer from "./contactReducer";
 import {
   ADD_CONTACT,
   DELETE_CONTACT,
-  // SET_CURRENT,
-  // CLEAR_CURRENT,
+  SET_CURRENT,
+  CLEAR_CURRENT,
   // UPDATE_CONTACT,
   // FILTER_CONTACT,
   // CLEAR_FILTER,
@@ -16,27 +16,28 @@ const ContactState = (props) => {
   const initialState = {
     contacts: [
       {
-        _id: 1,
+        id: 1,
         name: "Ac Carter",
         email: "carter@gmail.com",
         phone: "9876543210",
         type: "personal",
       },
       {
-        _id: 2,
+        id: 2,
         name: "Sara Watson",
         email: "watson@gmail.com",
         phone: "546789125",
         type: "personal",
       },
       {
-        _id: 3,
+        id: 3,
         name: "Harry Dell",
         email: "carter@gmail.com",
         phone: "9876543210",
         type: "professional",
       },
     ],
+    current: null
   };
   const [state, dispatch] = useReducer(contactReducer, initialState);
 
@@ -51,8 +52,14 @@ const ContactState = (props) => {
   };
 
   // Set Current Contact
+  const setCurrent = (contact) => {
+    dispatch({ type: SET_CURRENT, payload: contact });
+  };
 
   // Clear Current Contact
+  const clearCurrent = () => {
+    dispatch({ type: CLEAR_CURRENT});
+  };
 
   // Update Contact
 
@@ -64,8 +71,11 @@ const ContactState = (props) => {
     <ContactContext.Provider
       value={{
         contacts: state.contacts,
+        current: state.current,
         addContact,
         deleteContact,
+        setCurrent,
+        clearCurrent
       }}
     >
       {props.children}

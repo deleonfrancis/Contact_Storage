@@ -31,7 +31,7 @@ function ContactForm() {
     <Fragment>
       <form onSubmit={onSubmit}>
         <div style={{margin:"15px 0"}}>
-          <label for="name">Name</label>
+          <label htmlFor="name">Name</label>
           <input
             type="text"
             id="name"
@@ -43,7 +43,7 @@ function ContactForm() {
           />
         </div>
         <div style={{margin:"15px 0"}}>
-          <label for="email">Email</label>
+          <label htmlFor="email">Email</label>
           <input
             type="email"
             id="email"
@@ -55,7 +55,7 @@ function ContactForm() {
           />
         </div>
         <div style={{margin:"15px 0"}}>
-          <label for="phone">Phone Number</label>
+          <label htmlFor="phone">Phone Number</label>
           <input
             type="text"
             id="phone"
@@ -72,6 +72,7 @@ function ContactForm() {
           name="type"
           value="personal"
           checked={type === "personal"}
+          onChange={onChange}
         />
         Personal {" "}
         <input
