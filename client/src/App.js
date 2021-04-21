@@ -6,23 +6,27 @@ import About from "./components/pages/About";
 // import axios from "axios";
 
 import ContactState from "./context/contact/ContactState";
+import AuthState from "./context/auth/AuthState";
+
 import "./App.css";
 
 const App = () => {
   return (
-    <ContactState>
-      <Router>
-        <>
-          <Navbar />
-          <div className="container">
-            <Switch>
-              <Route exact path="/" component={Home} />
-              <Route exact path="/about" component={About} />
-            </Switch>
-          </div>
-        </>
-      </Router>
-    </ContactState>
+    <AuthState>
+      <ContactState>
+        <Router>
+          <>
+            <Navbar />
+            <div className="container">
+              <Switch>
+                <Route exact path="/" component={Home} />
+                <Route exact path="/about" component={About} />
+              </Switch>
+            </div>
+          </>
+        </Router>
+      </ContactState>
+    </AuthState>
   );
 };
 
