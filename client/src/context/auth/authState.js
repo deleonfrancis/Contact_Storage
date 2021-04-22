@@ -74,26 +74,30 @@ const AuthState = (props) => {
         payload: err.response.data.msg,
       });
     }
-    // const config = {
-    //   headers: {
-    //     "Content-Type": " application/json",
-    //   },
-    // };
-    // try {
-    //   const res = await axios.post("/api/users", formData, config);
-    //   dispatch({ type: REGISTER_SUCCESS, payload: res.data });
-    // } catch (error) {
-    //   dispatch({ type: REGISTER_FAIL, payload: error.response.data.msg });
-    //   loadUser()
-
-    // }
   };
   //  Login User
-  const loginUser = () => {
-    // if(localStorage.token){
-    //   setAuthToken(localStorage.token)
-    // }
-    console.log("loginUser");
+  const loginUser = async (formData) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    try {
+      const res = await axios.post("/api/auth", formData, config);
+
+      dispatch({
+        type: LOGIN_SUCCESS,
+        payload: res.data,
+      });
+
+      loadUser();
+    } catch (err) {
+      dispatch({
+        type: LOGIN_FAIL,
+        payload: err.response.data.msg,
+      });
+    }
   };
 
   // Logout
